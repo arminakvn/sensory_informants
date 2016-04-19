@@ -1,0 +1,256 @@
+@font-face {
+    font-family: "CartoGothicStd";
+    font-weight: normal;
+    src: url("./fonts/CartoGothicStd-Book.otf") format("openType");
+}
+@font-face {
+    font-family: "CartoGothicStd";
+    font-weight: bold;
+    src: url("./fonts/CartoGothicStd-Bold.otf") format("openType");
+}
+@font-face {
+    font-family: "CartoGothicStd";
+    font-weight: italic;
+    src: url("./fonts/CartoGothicStd-Italic.otf") format("openType");
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*******************************
+            Global
+*******************************/
+
+html {
+  font-family: "CartoGothicStd", sans-serif;  font-weight: 200;  font-size: 13px;
+}
+
+
+/*******************************
+            Global
+*******************************/
+#home {
+    font-family: "CartoGothicStd", sans-serif;  font-weight: 200;  font-size: 13px;
+
+}
+
+#home .menu .right.menu > .mobile.item {
+  display: none;
+}
+
+/*--------------
+    Masthead
+---------------*/
+
+#home .masthead {
+  background-image: url(images/bg.jpg);
+  margin: 0em;
+  padding: 5rem 0rem;
+}
+#home .masthead .column {
+  position: relative;
+}
+#home .masthead .information {
+  margin: 10em 1em 1em 350px;
+}
+#home .masthead .information p {
+  max-width: 600px;
+}
+#home .masthead .image {
+  position: absolute;
+  left: 0%;
+  bottom: -110px;
+}
+
+/*--------------
+    Ribbons
+---------------*/
+
+#home .segment h1 {
+  font-size: 3em;
+  margin-bottom: 1em;
+}
+
+#home .vertical.segment {
+  padding: 12rem 0rem;
+}
+
+#home .feature.segment {
+  margin: 0em;
+  padding: 6rem 0rem;
+}
+#home .feature.segment p {
+  min-height: 50px;
+}
+
+#home .selection.list {
+  margin: 0em -0.5em;
+}
+
+#home .logo.row {
+  height: 10rem;
+}
+
+/*--------------
+    Footer
+---------------*/
+
+#home .footer.segment {
+  background-color: #000000;
+  padding: 3rem 0rem;
+}
+
+
+/*******************************
+          Responsive
+*******************************/
+
+/* Mobile Only */
+@media only screen and (max-width : 768px) {
+
+  #home .menu .right.menu > .item {
+    display: none;
+  }
+
+  #home .menu .right.menu > .mobile.item {
+    display: block;
+  }
+  #home .menu .right.menu > .mobile.item .menu {
+    left: auto;
+    right: 0em;
+  }
+
+  #home h1 {
+    font-size: 1.5em;
+  }
+  #home .masthead.segment .information {
+    margin-left: 170px;
+  }
+
+  #home .masthead.segment .image {
+    width: 170px;
+  }
+
+  #home .masthead.segment .button {
+    font-size: 1rem;
+  }
+
+  #home .overview .divided.grid .header .icon {
+    font-size: 1.5em;
+  }
+
+  #home .overview .divided.grid .header + p {
+    min-height: 0px;
+  }
+
+  #home .masthead.segment .column {
+    font-size: 0.7rem;
+  }
+
+  #home .masthead.segment .column p {
+    display: none;
+  }
+
+  #home .selection.list .right.floated {
+    display: none;
+  }
+}
+ #heatmap {
+        height: 600px;
+        padding: 0;
+        margin: 0;
+      }
+#map {
+        height: 680px;
+        padding: 0;
+        margin: 0;
+      }
+
+ #content {
+        padding: 20px;
+        text-align: center;
+      }
+      .map {
+        float:left;
+        margin: 10px;
+        width: 500px;
+        height: 500px;
+        border: 1px solid #ccc;
+        background-color: #f8f8f8;
+      }
+      .map img { display: none; }
+
+
+.wholeDocument {
+      font-family: "CartoGothicStd", sans-serif;  
+      font-weight: 200;  
+      font-size: 13px;
+  
+      }
+
+h2{
+    font-family: "CartoGothicStd", sans-serif;  font-weight: 700;  font-size: 22px;
+
+}
+ui.sidebar {
+  background-color: white;
+}
+.ui.visible.uncover.sidebar {
+  background-color: white;
+  /*color: white;*/
+}
+
+.stations, .stations svg {
+  position: absolute;
+}
+
+.stations svg {
+  width: 60px;
+  height: 40px;
+  padding-right: 100px;
+  font: 10px sans-serif;
+}
+
+.stations circle {
+  fill: brown;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+#about {
+  color: gray;
+  background-color: white;
+}
+#about:hover {
+  color: #E65331;
+}
+#transportation {
+  color: #1B9E83;
+}
+#human {
+  color: #9BBF3A;
+}
+#construction {
+  color: #A03F97;
+}
+#birds {
+  color: #E9B221;
+}
+#wind {
+  color: #90D5E1;
+}
+#misc {
+  color: #EE3125;
+}
+
+.gmnoprint {
+  width: 200px;
+  height: 200px;
+}
+div.gmnoprint { 
+  width: 45px !important;
+  height: 45px !important;}

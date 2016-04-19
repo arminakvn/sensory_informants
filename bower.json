@@ -1,0 +1,25 @@
+{
+  "name": "sensory_informants",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "armin.akhavan@gmail.com"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mapbox.js": "^2.3.0",
+    "semantic": "semantic-ui#^2.1.8",
+    "cartodb.js": "^3.15.9",
+    "d3": "^3.5.16"
+  }
+}
