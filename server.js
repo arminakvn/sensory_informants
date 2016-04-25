@@ -30,6 +30,8 @@
     'index': ['index.html', 'index.htm']
   }));
 
+  app.use(serveStatic('./bower_components/jquery/dist'));
+
   app.use(serveStatic('./node_modules/web-audio-api/lib'));
 
   app.use(serveStatic('./lib'));
@@ -44,6 +46,8 @@
 
   app.use(serveStatic('./bower_components/d3'));
 
+  app.use(serveStatic('./bower_components/d3-queue'));
+
   app.use(serveStatic('./sounds'));
 
   user = "arminavn";
@@ -52,7 +56,7 @@
 
   sql = "SELECT * FROM table_4";
 
-  lookup_sql = "SELECT * FROM northend_soundcategories_time";
+  lookup_sql = "SELECT * FROM soundsbrokendown_3min_3";
 
   labels_sql = "SELECT * FROM category_lookup";
 
@@ -69,7 +73,6 @@
         ref = labes_body.rows;
         for (i = 0, len = ref.length; i < len; i++) {
           ea = ref[i];
-          console.log(ea);
           labels_res.push({
             "abbr": ea.description,
             "name": ea.name
@@ -83,7 +86,6 @@
   app.get('/lookup', (function(_this) {
     return function(req, res) {
       var lookup_features;
-      console.log("https://" + user + ".cartodb.com/api/v2/sql?q=" + lookup_sql + "&api_key=" + api_key);
       lookup_features = [];
       return request({
         method: 'GET',
@@ -91,7 +93,6 @@
         json: true
       }, function(error, lookup_response, lookup_body) {
         var each, i, len, ref;
-        console.log(lookup_body.rows);
         if (!error && lookup_response.statusCode === 200) {
           ref = lookup_body.rows;
           for (i = 0, len = ref.length; i < len; i++) {
@@ -108,12 +109,38 @@
     };
   })(this));
 
+  app.get('/brokenDown/:station', (function(_this) {
+    return function(req, res) {
+      var lookup_features, param;
+      param = req.params.station;
+      lookup_sql = "SELECT * FROM soundsbrokendown_3min_3 WHERE SoundFile=" + param;
+      lookup_features = [];
+      return request({
+        method: 'GET',
+        url: "https://" + user + ".cartodb.com/api/v2/sql?q=" + lookup_sql + "&api_key=" + api_key,
+        json: true
+      }, function(error, lookup_response, lookup_body) {
+        var each, i, len, ref;
+        if (!error && lookup_response.statusCode === 200) {
+          ref = lookup_body.rows;
+          for (i = 0, len = ref.length; i < len; i++) {
+            each = ref[i];
+            lookup_features.push({
+              "location_number": +each.soundfile,
+              "seconds": each.seconds,
+              "category": each.category
+            });
+          }
+          return res.send(lookup_features);
+        }
+      });
+    };
+  })(this));
+
   app.get('/lookupby/:category_station', (function(_this) {
     return function(req, res) {
       var lookup_features, param;
-      console.log(req.params);
       param = req.params.category_station.split('_');
-      console.log("param", param);
       lookup_sql = "SELECT * FROM northend_soundcategories_time WHERE category IN ('" + param[0] + "') AND number=" + param[1];
       lookup_features = [];
       return request({
@@ -142,8 +169,6 @@
   app.get('/categoryby/:station', (function(_this) {
     return function(req, res) {
       var lookup_features;
-      console.log(req.params);
-      console.log("https://" + user + ".cartodb.com/api/v2/sql?q=" + lookup_sql + "&api_key=" + api_key);
       lookup_features = [];
       return request({
         method: 'GET',
@@ -171,7 +196,6 @@
   app.get('/data', (function(_this) {
     return function(req, res) {
       var geores;
-      console.log("https://" + user + ".cartodb.com/api/v2/sql?q=" + sql + "&api_key=" + api_key);
       geores = {
         "type": "FeatureCollection",
         "features": []

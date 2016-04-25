@@ -16,13 +16,14 @@
     
 
 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
     
     <script type="text/javascript"src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmOSpEfX9QrGlbZXOJsS1T_phh5ox9LrE&libraries=visualization"></script>
+    <script src="jquery.js"></script>
     <script src="semantic.js"></script>
     <script src="mapbox.js"></script>
     <script src="cartodb.js"></script>
     <script src="d3.js"></script>
+    <script src="d3-queue.js"></script>
     <script src="cartodb.mod.torque.js"></script>
 
   
@@ -86,70 +87,47 @@
   <div class="grouped fields">
 
 
-    <div class="field">
-    <div class="ui slider checkbox">
-
-        <input name="all" type="checkbox" checked="checked">
-        <label class="all">play all</label>
-      </div>
-    </div>
+    <!-- <div class="field">
+    <i id="misc" class="circle thin large icon" style="font-weight: bold;"></i>
+    </div -->
     <div class="field">
     
-    <div class="ui slider checkbox">
-
-        <input name="transportation"  type="checkbox">
-        <label id="transportation">transportation</label>
-      </div>
+    <i id="transportation" class="circle thin large icon" style="font-weight: bold;"></i> transportation
     </div>
 
     <div class="field">
     
-    <div class="ui slider checkbox">
-
-        <input name="human"  type="checkbox">
-        <label id="human">human</label>
-      </div>
+    <i id="human" class="circle thin large icon" style="font-weight: bold;"></i> human
     </div>
 
 
     <div class="field">
     
-    <div class="ui slider checkbox">
-
-        <input name="construction"  type="checkbox">
-        <label id="construction">construction</label>
-      </div>
+    <i id="construction" class="circle thin large icon" style="font-weight: bold;"></i> construction
     </div>
 
 
 <div class="field">
     
-    <div class="ui slider checkbox">
-
-        <input name="birds"  type="checkbox">
-        <label id="birds">birds</label>
-      </div>
+    <i id="birds" class="circle thin large icon" style="font-weight: bold;"></i> birds
     </div>
 
 
 
 <div class="field">
     
-    <div class="ui slider checkbox">
 
-        <input name="wind"  type="checkbox">
-        <label id="wind">wind</label>
-      </div>
+        <i id="wind" class="circle thin large icon" style="font-weight: bold;"></i> wind
     </div>
 
 
 <div class="field">
     
-    <div class="ui slider checkbox">
+    <!-- <div class="ui slider checkbox"> -->
 
-        <input name="misc"  type="checkbox">
-        <label id="misc">misc</label>
-      </div>
+        <!-- <input name="miscellaneous"  type="checkbox" checked="checked"> -->
+        <i id="misc" class="circle thin large icon" style="font-weight: bold;"></i> miscellaneous
+      <!-- </div> -->
     </div>
 
 
@@ -174,6 +152,7 @@
     </div>
   </div>
 </div>
+<audio></audio>
 </body>
 
 

@@ -226,25 +226,25 @@ ui.sidebar {
   background-color: white;
 }
 #about:hover {
-  color: #E65331;
+  color: #E65331 !important;
 }
 #transportation {
-  color: #1B9E83;
+  color: #1B9E83 !important;
 }
 #human {
-  color: #9BBF3A;
+  color: #9BBF3A !important;
 }
 #construction {
-  color: #A03F97;
+  color: #A03F97 !important;
 }
 #birds {
-  color: #E9B221;
+  color: #E9B221 !important;
 }
 #wind {
-  color: #90D5E1;
+  color: #90D5E1 !important;
 }
 #misc {
-  color: #EE3125;
+  color: #EE3125 !important;
 }
 
 .gmnoprint {

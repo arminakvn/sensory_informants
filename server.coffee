@@ -1,5 +1,13 @@
 `var path`
 'use strict'
+
+
+
+
+
+
+# server will start by going through the sound files and generates the data containing the
+# values for each seconds and then will server the tables through an api
 express = require('express')
 request = require 'request'
 path = require('path')
@@ -15,6 +23,7 @@ app.use serveStatic('./', 'index': [
   'index.html'
   'index.htm'
 ])
+app.use serveStatic('./bower_components/jquery/dist')
 app.use serveStatic('./node_modules/web-audio-api/lib')
 app.use serveStatic('./lib')
 app.use serveStatic('./bower_components/mapbox.js')
@@ -22,12 +31,14 @@ app.use serveStatic('./bower_components/semantic/dist')
 app.use serveStatic('./bower_components/cartodb.js')
 app.use serveStatic('./bower_components/cartodb.js/themes/css')
 app.use serveStatic('./bower_components/d3')
+app.use serveStatic('./bower_components/d3-queue')
+
 app.use serveStatic('./sounds')
 
 user= "arminavn"
 api_key= "9150413ca8fb81229459d0a5c2947620e42d0940"
 sql= "SELECT * FROM table_4"
-lookup_sql= "SELECT * FROM northend_soundcategories_time"
+lookup_sql= "SELECT * FROM soundsbrokendown_3min_3"
 labels_sql = "SELECT * FROM category_lookup"
 
 app.get '/labels', (req, res) =>
@@ -39,21 +50,18 @@ app.get '/labels', (req, res) =>
   }, (error, label_response, labes_body) =>
     
     for ea in labes_body.rows
-      console.log ea
       labels_res.push
         "abbr": ea.description
         "name": ea.name
     res.send labels_res
 
 app.get '/lookup', (req, res) =>
-    console.log "https://#{user}.cartodb.com/api/v2/sql?q=#{lookup_sql}&api_key=#{api_key}"
     lookup_features = []
     request {
           method: 'GET'
           url: "https://#{user}.cartodb.com/api/v2/sql?q=#{lookup_sql}&api_key=#{api_key}"
           json: true
         }, (error, lookup_response, lookup_body) =>
-          console.log lookup_body.rows
           if !error and lookup_response.statusCode == 200
             # console.log body
             # console.log body.rows.length
@@ -66,10 +74,28 @@ app.get '/lookup', (req, res) =>
             res.send lookup_features
             # @emit 'radarResponds', body.results
 
+app.get '/brokenDown/:station', (req, res) =>
+    param = req.params.station
+    lookup_sql = "SELECT * FROM soundsbrokendown_3min_3 WHERE SoundFile=#{param}"
+    lookup_features = []
+    request {
+          method: 'GET'
+          url: "https://#{user}.cartodb.com/api/v2/sql?q=#{lookup_sql}&api_key=#{api_key}"
+          json: true
+        }, (error, lookup_response, lookup_body) =>
+          if !error and lookup_response.statusCode == 200
+            # console.log body
+            # console.log body.rows.length
+            for each in lookup_body.rows
+              lookup_features.push 
+                "location_number": +each.soundfile
+                "seconds": each.seconds
+                "category": each.category
+              
+            res.send lookup_features
+
 app.get '/lookupby/:category_station', (req, res) =>
-    console.log req.params
     param = req.params.category_station.split('_')
-    console.log "param", param
     lookup_sql = "SELECT * FROM northend_soundcategories_time WHERE category IN ('#{param[0]}') AND number=#{param[1]}"
     # console.log "https://#{user}.cartodb.com/api/v2/sql?q=#{lookup_sql}&api_key=#{api_key}"
     lookup_features = []
@@ -92,8 +118,6 @@ app.get '/lookupby/:category_station', (req, res) =>
             # @emit 'radarResponds', body.results
 
 app.get '/categoryby/:station', (req, res) =>
-    console.log req.params
-    console.log "https://#{user}.cartodb.com/api/v2/sql?q=#{lookup_sql}&api_key=#{api_key}"
     lookup_features = []
     request {
           method: 'GET'
@@ -117,7 +141,6 @@ app.get '/categoryby/:station', (req, res) =>
 
 
 app.get '/data', (req, res) =>
-    console.log "https://#{user}.cartodb.com/api/v2/sql?q=#{sql}&api_key=#{api_key}"
     geores = {
       "type": "FeatureCollection"
       "features": []
